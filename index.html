@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELARN</title>
+    
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.0/js/all.min.js" defer></script>
+    
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📕</text></svg>">
     <style>
         :root {
@@ -62,15 +66,16 @@
         }
 
         .theme-toggle {
-            font-family: "Segoe UI Symbol", "Apple Symbols", "Symbola", sans-serif;
             background: none;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 35px;
+            height: 35px;
             transition: transform 0.2s ease, text-shadow 0.2s ease;
         }
 
@@ -112,7 +117,7 @@
             text-align: center;
         }
 
-        .about-ELARN {
+        .about-elarn {
             font-size: 1.1rem;
             line-height: 1.8;
             color: var(--about-text-color);
@@ -228,19 +233,22 @@
             document.body.classList.add('dark-mode');
         }
     </script>
+
     <nav class="navbar">
         <div class="navbar-logo">
-            <img src="ELARN.png" alt="ELARN Logo">
+            <img src="elarn.png" alt="Elarn Logo">
         </div>
         <div class="navbar-links">
-            <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">&#x23FE;</button>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
             <a href="https://forms.gle/AQr2Weq7YPp5vfky7" target="_blank" rel="noopener noreferrer" class="navbar-button">Courses</a>
         </div>
     </nav>
 
     <main class="container">
         <h1>Welcome to ELARN</h1>
-        <p class="about-ELARN">
+        <p class="about-elarn">
             ELARN stands at the forefront of the digital education revolution, serving as a comprehensive, globally accessible e-learning platform designed to empower students, professionals, & lifelong learners alike. Built on the core philosophy that high-quality education should recognize no borders, time zones, or schedules, ELARN offers an expansive & carefully curated catalog of courses spanning modern technology, business strategy, creative arts, & personal development. By bridging the critical gap between industry-leading experts & eager minds, the platform fosters an interactive, intuitive, & highly engaging virtual classroom environment. Whether you are looking to master a complex new programming language, enhance your corporate leadership skills, or simply explore a newfound creative passion, ELARN provides robust digital tools, flexible self-paced learning modules, & a supportive global community to help you achieve your goals. With a steadfast commitment to user-centric design & continuous educational innovation, ELARN is not just a digital destination to learn-it is a thriving ecosystem built to inspire growth, unlock human potential, & prepare you for the intellectual & professional challenges of tomorrow.
         </p>
         <div class="slider-wrapper">
@@ -260,6 +268,7 @@
             </div>
         </div>
     </main>
+
     <footer>
         <div class="contact-info">
             <span>Contact: <a href="mailto:checkoutprakhar@gmail.com">checkoutprakhar@gmail.com</a></span>
@@ -272,25 +281,26 @@
     </footer>
 
     <script>
-      $(document).ready(function(){
+        $(document).ready(function(){
             if (localStorage.getItem('theme') === 'dark') {
-                $('#themeToggle').html('&#x2600;&#xFE0E;');
+                $('body').addClass('dark-mode');
+                $('#themeToggle').html('<i class="fa-solid fa-sun"></i>');
                 $('#themeToggle').attr('title', 'Toggle Light Mode');
             } else {
-                $('#themeToggle').html('&#x23FE;');
+                $('#themeToggle').html('<i class="fa-solid fa-moon"></i>');
                 $('#themeToggle').attr('title', 'Toggle Dark Mode');
             }
-
             $('#themeToggle').click(function() {
                 $('body').toggleClass('dark-mode');
-                    if ($('body').hasClass('dark-mode')) {
-                    $(this).html('&#x2600;&#xFE0E;'); 
+                
+                if ($('body').hasClass('dark-mode')) {
+                    $(this).html('<i class="fa-solid fa-sun"></i>');
                     $(this).attr('title', 'Toggle Light Mode');
-                    localStorage.setItem('theme', 'dark');
+                    localStorage.setItem('theme', 'dark'); 
                 } else {
-                    $(this).html('&#x23FE;'); 
+                    $(this).html('<i class="fa-solid fa-moon"></i>');
                     $(this).attr('title', 'Toggle Dark Mode');
-                    localStorage.setItem('theme', 'light');
+                    localStorage.setItem('theme', 'light'); 
                 }
             });
             let currentIndex = 0;
@@ -323,7 +333,7 @@
                 
                 startAutoSlide();
             });
-      });
+        });
     </script>
 </body>
 </html>
