@@ -45,7 +45,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 40px;
-            box-shadow: var(--red-shadow); /* Red Shadow */
+            box-shadow: var(--red-shadow);
             position: relative;
             z-index: 10;
         }
@@ -99,8 +99,8 @@
             padding: 30px;
             background-color: var(--container-bg);
             border-radius: 8px;
-            box-shadow: var(--red-shadow); /* Red Shadow */
-            flex: 1; /* Pushes footer to bottom */
+            box-shadow: var(--red-shadow);
+            flex: 1;
             transition: background-color 0.3s ease;
         }
 
@@ -126,7 +126,7 @@
             max-width: 800px;
             margin: 0 auto;
             aspect-ratio: 16 / 9;
-            box-shadow: var(--red-shadow); /* Red Shadow */
+            box-shadow: var(--red-shadow);
             overflow: hidden;
             border-radius: 8px;
         }
@@ -182,7 +182,7 @@
             align-items: center;
             text-align: center;
             gap: 15px;
-            box-shadow: 0 -4px 15px rgba(153, 15, 2, 0.4); /* Optional upward red shadow for footer */
+            box-shadow: 0 -4px 15px rgba(153, 15, 2, 0.4);
         }
 
         .footer-links {
@@ -272,7 +272,6 @@
 
     <script>
       $(document).ready(function(){
-            // --- NEW CODE: Check localStorage on page load ---
             if (localStorage.getItem('theme') === 'dark') {
                 $('body').addClass('dark-mode');
                 $('#themeToggle').text('☀︎');
@@ -281,16 +280,14 @@
 
             $('#themeToggle').click(function() {
                 $('body').toggleClass('dark-mode');
-                
-                // --- MODIFIED CODE: Update button and save to localStorage ---
                 if ($('body').hasClass('dark-mode')) {
                     $(this).text('☀︎');
                     $(this).attr('title', 'Toggle Light Mode');
-                    localStorage.setItem('theme', 'dark'); // Save dark mode preference
+                    localStorage.setItem('theme', 'dark');
                 } else {
-                    $(this).text('⏾');
+                    $(this).text('☾');
                     $(this).attr('title', 'Toggle Dark Mode');
-                    localStorage.setItem('theme', 'light'); // Save light mode preference
+                    localStorage.setItem('theme', 'light');
                 }
             });
             let currentIndex = 0;
