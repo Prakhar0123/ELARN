@@ -96,7 +96,7 @@ function autoSortCheckbox() {
 }
 ```
 ___
-## USAGE INSTRUCTIONS (ADMIN):
+## Usage Instructions (Admin):
 1. The form response sheet must be like:
    <img width="1113" height="288" alt="image" src="https://github.com/user-attachments/assets/bf712e06-016a-4351-841c-bb45e243fce2" />
    Name E & F columns & fill the data manually.
