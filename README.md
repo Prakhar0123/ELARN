@@ -22,31 +22,20 @@ npm start
 
 I used Google Apps Script to automate tasks in ELARN’s Google Sheets' & Google Forms' backend. Here are the script snippets:
 
-**1. Delete enrollments older than 3 days & send link automatically** - Add this code in the Apps Script provided in Google Sheets 
+**1. Delete enrollments older than 3 days & send link automatically** - Add & Save this code in the Apps Script provided in Google Sheets > Open Triggers: choose "sendCourseLinks" function, event source "From Spreadsheet", event type "On Form Submit" & Save > Open Editor & Run
 ```javascript
-function deleteOldRows() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Form Responses 1");
-  const dateColumn = 1;
-  const today = new Date();
-  const data = sheet.getDataRange().getValues();
-  for (let i = data.length - 1; i >= 1; i--) {
-    let cellDate = new Date(data[i][dateColumn - 1]);
-    if (!isNaN(cellDate) && (today - cellDate) / (1000 * 60 * 60 * 24) > 3) {
-      sheet.deleteRow(i + 1);
-    }
-  }
-}
 function sendCourseLinks(e) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Form Responses 1");
-  let email, coursesRaw;
-  if (e && e.values) {
+  let email, coursesRaw, rowToDelete;
+  if (e && e.range) {
+    rowToDelete = e.range.getRow();
     email = e.values[1];
     coursesRaw = e.values[2];
   } else {
-    const lastRow = sheet.getLastRow();
-    if (lastRow < 2) return;
-    email = sheet.getRange(lastRow, 2).getValue();
-    coursesRaw = sheet.getRange(lastRow, 3).getValue();
+    rowToDelete = sheet.getLastRow();
+    if (rowToDelete < 2) return;
+    email = sheet.getRange(rowToDelete, 2).getValue();
+    coursesRaw = sheet.getRange(rowToDelete, 3).getValue();
   }
   if (!email || !coursesRaw) return;
   const maxRow = sheet.getLastRow();
@@ -73,10 +62,14 @@ function sendCourseLinks(e) {
       subject: "ELARN-Your Enrolled Course Links",
       body: message
     });
+        Utilities.sleep(60000);
+    if (rowToDelete > 1) {
+      sheet.deleteRow(rowToDelete);
+    }
   }
 }
 ```
-**2. Auto-Sort new Courses** - Add this code in the Apps Script provided in Google Form creation page
+**2. Auto-Sort new Courses** - Add this code in the Apps Script provided in Google Form creation page & run after adding new course(s) in Forms
 ```javascript
 function autoSortCheckbox() {
   try {
@@ -102,3 +95,10 @@ function autoSortCheckbox() {
   }
 }
 ```
+---
+[!USAGE INSTRUCTIONS (ADMIN)]:
+1. The form response sheet must be like:
+   <img width="1113" height="288" alt="image" src="https://github.com/user-attachments/assets/bf712e06-016a-4351-841c-bb45e243fce2" />
+   Name E & F columns & fill the data manually.
+2. Add courses via Forms > Open Apps Script & Run code to sort the courses.
+3. In case if the sheets fail to auto-delete courses, open extensions > Apps Script > Run code to restart the process
